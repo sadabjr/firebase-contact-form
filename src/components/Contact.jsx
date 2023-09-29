@@ -1,5 +1,8 @@
 import { useState } from "react";
+import { signOut } from "firebase/auth";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
+
 
 const Contact = () => {
   const [user, setUser] = useState({
@@ -56,10 +59,18 @@ const Contact = () => {
     }
   };
 
+  const history = useNavigate()
+
+  const handleClick = () => {
+    signOut();
+    history('/')
+  };
+
   return (
     <>
       <div className="contact-form-container">
         <h2>Contact Us</h2>
+
         <form method="POST">
           <div className="form-group">
             <label htmlFor="name">Name:</label>
@@ -124,6 +135,9 @@ const Contact = () => {
             Submit
           </button>
         </form>
+        <div className="signOut">
+          <button onClick={handleClick}>SignOut</button>
+        </div>
       </div>
     </>
   );
